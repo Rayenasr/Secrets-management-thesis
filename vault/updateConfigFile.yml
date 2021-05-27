@@ -1,0 +1,33 @@
+# Update config file post SSL certificate signing
+# certifcates placed under ./config/
+---
+- name: fetch the azure and vault integration plugin for TeamCity
+  hosts: PoC
+  vars_prompt:
+    - name: username
+      prompt: What is your username?
+      private: no
+
+    - name: password
+      prompt: What is your password?
+  tasks:
+    - name: update initial config file
+      copy:
+        dest: C:\Program Files\Vault\config\config.hcl
+        content: |
+          ui = true
+          disable_mlock = true
+
+          storage "file" {
+          path = "./data2"
+          }
+
+          listener "tcp" {
+            address     = "dev-test-web01.wkfs-frc.local:8200"
+            tls_disable = "false"
+            tls_cert_file = "./config/certs/dev-test-web01_wkfs-frc_local.crt"
+            tls_key_file  = "./config/certs/dev-test-web01_wkfs-frc_local.key"
+          }
+
+          api_addr = "https://dev-test-web01.wkfs-frc.local:8200"
+          cluster_addr = "https://dev-test-web01.wkfs-frc.local:8201"

@@ -1,0 +1,21 @@
+# Downloads latest TeamCity plugins for Azure Key Vault & Hashicorp Vault
+# Located at C:\Program Files\vault\plugins
+- name: fetch the azure and vault integration plugin for TeamCity
+  hosts: PoC
+  vars_prompt:
+    - name: username
+      prompt: What is your username?
+      private: no
+
+    - name: password
+      prompt: What is your password?
+  tasks:
+    - name: download azure key vault plugin
+      win_get_url:
+        url: https://plugins.jetbrains.com/files/11373/60236/teamcity-azure-keyvault-plugin-1.1.0.zip?updateId=60236&pluginId=11373&family=TEAMCITY&code=TC
+        dest: C:\Program Files\vault\plugins
+    
+    - name: download Hashicorp vault plugin
+      win_get_url:
+        url: https://plugins.jetbrains.com/files/10011/114326/teamcity-hashicorp-vault-plugin.zip?updateId=114326&pluginId=10011&family=TEAMCITY&code=TC
+        dest: C:\Program Files\vault\plugins

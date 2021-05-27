@@ -1,0 +1,88 @@
+# Installs vault, sets up environment variable for vault CLI requests & defines initial config file
+---
+- name: initial setup vault
+  hosts: PoC
+  vars_prompt:
+    - name: username
+      prompt: What is your username?
+      private: no
+
+    - name: password
+      prompt: What is your password?
+  tasks:
+
+    - name: output what user logged in
+      ansible.builtin.debug:
+        msg: 'Logging in as {{ username }}'
+
+    - name: create directory for temp files
+      win_file: 
+        path: C:\temp\vault
+        state: directory
+
+    - name: create directory main vault directory
+      win_file: 
+        path: C:\Program Files\Vault
+        state: directory
+      
+    - name: create directory for data back-end
+      win_file: 
+        path: C:\Program Files\Vault\data
+        state: directory
+      
+    - name: create directory for configuration file
+      win_file: 
+        path: C:\Program Files\Vault\config
+        state: directory
+    
+    - name: create directory for plugins
+      win_file: 
+        path: C:\Program Files\Vault\plugins
+        state: directory
+
+    - name: create directory for policy files
+      win_file: 
+        path: C:\Program Files\Vault\config\policy
+        state: directory
+
+    - name: create directory for SSL certifcate files
+      win_file: 
+        path: C:\Program Files\Vault\config\certs
+        state: directory
+    
+    - name: download Vault package
+      win_get_url:
+        url: https://releases.hashicorp.com/vault/1.7.2/vault_1.7.2_windows_amd64.zip
+        dest: C:\temp\vault\vault.zip
+
+    - name: unzip vault package and move to program files location
+      win_unzip:
+        src: C:\temp\vault\vault.zip
+        dest: C:\Program Files\Vault
+
+    - name: delete temp vault directory
+      win_file:
+        path: C:\temp\vault
+        state: absent
+    
+    - name: setup environmental variable for initial vault address
+      win_shell: set VAULT_ADDR=http://127.0.0.1:8200
+
+    - name: Create initial config file
+      copy:
+        dest: C:\Program Files\Vault\config\config.hcl
+        content: |
+          ui = true
+          disable_mlock = true
+
+          storage "file" {
+          path = "./data"
+          }
+
+          listener "tcp" {
+            address     = "0.0.0.0:8200"
+            tls_disable = "true"
+          }
+
+          api_addr = "http://127.0.0.1:8200"
+          #cluster_addr = "https://127.0.0.1:8201"
