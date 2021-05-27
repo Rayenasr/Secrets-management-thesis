@@ -31,3 +31,6 @@
 
           api_addr = "https://dev-test-web01.wkfs-frc.local:8200"
           cluster_addr = "https://dev-test-web01.wkfs-frc.local:8201"
+
+    - name: setup environmental variable for definitive vault address
+      win_shell: set VAULT_ADDR=https://dev-test-web01.wkfs-frc.local:8200
