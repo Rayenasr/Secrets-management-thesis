@@ -1,4 +1,7 @@
-﻿param(
+#
+# Thanks you for Jan Delamper for guiding me om the usage of the script 
+# Credits -- Jan Delamper -- Wolters Kluwer
+param(
 	[Parameter(Mandatory = $true)][string] $TeamCityAccount,
 	[Parameter(Mandatory = $true)][string] $TeamCityAccountEncryptedPassword
 )
@@ -63,5 +66,3 @@ function startTCJob ($teamcityHost, $user, $pass, $buildConfigurationId, $waitFo
 
 
 startTCJob $teamcityHost $TeamCityAccount $TeamCityAccountEncryptedPassword $buildConfigurationId "true"
-
-#Credit -- Jan Delamper -- Wolters Kluwer
