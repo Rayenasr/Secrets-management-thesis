@@ -14,6 +14,6 @@ Playbooks & script used for the thesis [*Secrets management: central management 
 
 ## Powershell script
 
-| Usage               | GitHub gebruikersnaam                                   |
+| Usage               | Location                                   |
 | :----------------- | :------------------------------------------------------ |
 | API call to start TeamCity build        | [RunJobWithVault.ps1](https://github.com/Rayenasr/Secrets-management-thesis/blob/main/TeamCity/RunJobWithVault.ps1)                 |
