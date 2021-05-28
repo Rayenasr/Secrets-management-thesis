@@ -1,5 +1,5 @@
 #
-# Thanks you for Jan Delamper for guiding me om the usage of the script 
+# Thanks you for Jan Delamper on guiding me on the usage of the script 
 # Credits -- Jan Delamper -- Wolters Kluwer
 param(
 	[Parameter(Mandatory = $true)][string] $TeamCityAccount,
