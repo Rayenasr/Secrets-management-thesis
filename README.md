@@ -1,6 +1,6 @@
 # Secrets-management-thesis
 
-Playbooks & script used for the thesis [*Secrets management: central management of sensitive data*](link)
+Playbooks & script used for the thesis [*Secrets management: central management of sensitive data*](https://github.com/Rayenasr/Secrets-management-thesis/blob/main/Nasra%2C%20Rayen%2C%202021%2C%20Secrets%20management%20centraal%20beheer%20van%20gevoelige%20data.pdf)
 
 ## Ansible Playbooks
 
