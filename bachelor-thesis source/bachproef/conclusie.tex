@@ -1,0 +1,26 @@
+%%=============================================================================
+%% Conclusie
+%%=============================================================================
+
+\chapter{Conclusie}
+\label{ch:conclusie}
+
+% TODO: Trek een duidelijke conclusie, in de vorm van een antwoord op de
+% onderzoeksvra(a)g(en). Wat was jouw bijdrage aan het onderzoeksdomein en
+% hoe biedt dit meerwaarde aan het vakgebied/doelgroep? 
+% Reflecteer kritisch over het resultaat. In Engelse teksten wordt deze sectie
+% ``Discussion'' genoemd. Had je deze uitkomst verwacht? Zijn er zaken die nog
+% niet duidelijk zijn?
+% Heeft het onderzoek geleid tot nieuwe vragen die uitnodigen tot verder 
+%onderzoek?
+
+
+Na het onderzoek kunnen we concluderen dat secrets management systemen zeker gebruikt kunnen worden bij automatiseren wanneer gevoelige data gebruikt wordt. Een complexe hiërarchie van secrets behouden voor elke automatisering tool, afzonderlijk van elkaar, is een zeer lastige taak. Bij aanvang van deze proef werden enkele onderzoeksvragen opgesteld, waar doorheen deze proef een antwoord op werd gezocht. Deze onderzoeksvragen zijn als volgt: `` Welke open-source applicatie kan er gebruikt worden om \textbf{secrets} te beheren? ``, `` Welke cloud oplossing kan er gebruikt worden om \textbf{secrets} te beheren? `` en `` Welke opstelling on-premise of via cloud oplossing, geeft een betere werking voor de use case met TeamCity? ``.
+
+Op de onderzoeksvraag `` Welke open-source applicatie kan er gebruikt worden om \textbf{secrets} te beheren? ``, was Hashicorp Vault de meest interessante tool. De MoSCoW-methode werd gehanteerd om gelijkaardige tools te vergelijken op basis van een aantal kenmerken. Hashicorp Vault is ook de tool waarmee mijn interesse gewekt werd naar dit onderwerp. Het is een breed systeem die over de jaren heen de uitdagingen aanging die secret management aankaart. Voor de tweede onderzoeksvraag `` Welke cloud oplossing kan er gebruikt worden om \textbf{secrets} te beheren? `` werd de tool Azure Key Vault gekozen omdat Wolters Kluwer grotendeels Azure Cloud oplossingen hanteert. Bij Azure Key Vault lag ook meer de voorkeur voor gemak aan integratie door middel van zaken zoals Azure AD dat reeds gebruikt werd. 
+
+Van dit onderzoek werd verwacht dat de opstellingen niet te complex zouden zijn om op te zetten en voor Azure Key Vault was dit inderdaad het geval. Door het feit dat dit een cloud oplossing is, worden de stappen om deze te gebruiken, zo gebruiksvriendelijk mogelijk gehouden. Hier schuilen nog altijd technische competenties achter. Bij Hashicorp Vault was het opzetten iets meer complex door de reden dat deze volledig on-premise was. Een LDAP integratie samen met een SSL certificering zet deze opstelling goed om direct gebruikt te worden door het development team. Enige verdere integraties met andere applicaties kunnen dan ook verwezenlijkt worden. 
+
+Op de laatste onderzoeksvraag `` Welke opstelling on premise of via cloud geeft een betere werking voor de use case met TeamCity? `` werd door middel van de proof of concept, een resultaat behaald, ook al is dit niet wat er in eerste instantie verwacht werd. De proof of concept is niet volledig gelukt. De integraties van TeamCity met de plugins van Azure Key Vault en Hashicorp Vault zijn gelukt. Voor Azure Key Vault zijn de test builds die werden opgesteld geslaagd met de juiste \& verwachte werking. Secrets worden aangeroepen vanuit een beveiligde locatie waar deze centraal beheerd worden. Deze gegevens worden tijdelijk gebruikt zonder dat ze op de TeamCity server, noch de agent opgeslagen worden. Voor Hashicorp Vault is deze zelfde werking niet gelukt. De integratie was succesvol voltooid maar secrets worden niet opgeroepen. Na enige troubleshooting zou het probleem boven water kunnen komen. 
+
+Secrets management systemen bevatten veel domeinen die in de proof of concept niet aan bod zijn gekomen. Door de functionaliteiten die ter beschikking gesteld zijn, kan het zeer interessant zijn om deze verder te configureren en integraties te voeren met andere applicaties. Verder kan het ook zeker interessant zijn om deze functionaliteiten in de toekomst verder te onderzoeken.

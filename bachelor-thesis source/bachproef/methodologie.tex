@@ -1,0 +1,84 @@
+%%=============================================================================
+%% Methodologie
+%%=============================================================================
+
+\chapter{\IfLanguageName{dutch}{Methodologie}{Methodology}}
+\label{ch:methodologie}
+
+%% TODO: Hoe ben je te werk gegaan? Verdeel je onderzoek in grote fasen, en
+%% licht in elke fase toe welke stappen je gevolgd hebt. Verantwoord waarom je
+%% op deze manier te werk gegaan bent. Je moet kunnen aantonen dat je de best
+%% mogelijke manier toegepast hebt om een antwoord te vinden op de
+%% onderzoeksvraag.
+
+In dit hoofdstuk wordt er gekeken naar de mogelijke applicaties en wordt een keuze gemaakt aan de hand van de MoSCoW-methode, deze methode gebruiken we om de kenmerken te lijsten in categorieën om sneller in te zien welke kandidaat meer geschikt is. Dit verdelen we onder vier categorieën waaronder:
+\begin{itemize}
+    \item Must have
+    \item Should have
+    \item Could have
+    \item Won't have
+\end{itemize}
+
+\section{Criteria voor keuze tools}
+\subsection{Must have}
+
+In dit gedeelte kijken we naar de absolute must bij een applicatie, zo moet de applicatie aan volgende vereisten voldoen:
+
+\begin{itemize}
+    \item Application-pull kenmerken
+    \item Open-source
+    \item GUI aanwezig (met TLS verbinding)
+    \item Ondersteuning voor Windows (OS)
+    \item Ondersteuning TeamCity
+\end{itemize}
+
+Er wordt een focus gelegd op een gratis applicatie waar men via een GUI, beveiligd met een TLS verbinding, centraal de secrets kan beheren. Er moet ook een vorm van beleid zijn zodat niet iedereen aan elke gegevens kan. Een integratie met TeamCity is in dit geval belangrijk zodat deze gebruikt kan worden bij de proof of concept. Verder is het ook belangrijk binnen Wolters Kluwer dat het centrale platform beveiligd moeten kunnen worden met een getekend certificaat. Dit is een standaard voor platformen binnen het Wolters Kluwer netwerk voor veiligheidsredenen.
+
+\subsection{Should have}
+
+Het zou ook geen te ingewikkeld proces mogen zijn om de opstelling te maken. Dit moet evident op te zetten zijn zodat later andere mensen hiermee zonder veel moeite mee kunnen werken.
+
+\subsection{Could have}
+
+Een integratie met LDAP zodat het secret management systeem met active directory gegevens werkt is een pluspunt. Hiermee wordt er de mogelijkheid gegeven om via \textit{active directory user accounts}, binnen het domein van Wolters Kluweren, authenticatie te verrichten. In een bedrijf zoals Wolters Kluwer wordt LDAP gebruikt wanneer er integraties mogelijk zijn met applicaties. 
+
+\subsection{Won't have}
+
+Een volle integratie met verscheidene applicaties zal niet aan bod komen maar voor de concrete use case met TeamCity wel. Men gaat geen complexe configuraties uitvoeren om alle functionaliteiten te gebruiken.
+
+\section{Keuze tools}
+
+\subsection{On-premise}
+
+\begin{itemize}
+    \item Vault
+    \item Knox
+    \item Confidant
+    \item 1Password Secrets Automation
+\end{itemize}
+
+\subsubsection{Vault}
+
+Vault\footnote{\href{https://www.vaultproject.io/}{Vault website}} is een secrets management applicatie die in deel \ref{sec:Hashicorp vault} eerder besproken werd. Los van alle technische vereisten waar alle specificaties van komen wordt vault ook voor Windows ondersteund en gebruikt een duidelijke web interface. Vault maakt gebruik van een persistente backend om geëncrypteerde data in te behouden. Hiervoor kan Consul \footnote{\href{https://www.consul.io/}{Consul website}} gebruikt worden. Bij een opstelling zou er voor een simpele backend gekozen worden zoals een lokaal filesystem storage backend. Vault is open source en kan als een managed vault via cloud geleverd worden. TeamCity heeft één plugin \footnote{\href{https://plugins.jetbrains.com/plugin/10011-hashicorp-vault-support}{JetBrains website met Hashicorp Vault plugin}} voor een integratie met Vault dat gebruikt kan worden. Verder is er ook de mogelijkheid voor LDAP te integreren met Vault, zo kunnen AD gebruikers zich aanmelden via de web interface en volgens policies gegevens beheren. 
+
+\subsubsection{Knox}
+
+Knox \footnote{\href{https://github.com/pinterest/knox}{Knox github pagina}} is een applicatie aangemaakt door Pinterest omdat ze problemen hadden met het juist beheren van secrets. Zo bewaarden ze vroeger secrets in source control. Dit zorgde uiteraard voor een secret sprawl. De groei van het aantal ontwikkelaars zorgde ook voor bijkomende risico's zoals malware en phishing indien gegevens lekten. Knox zorgt voor een centraal beheer van secrets. Het geeft de mogelijkheid gebruikers toegang te verlenen wanneer secrets nodig zijn en het systeem ondersteunt de mogelijkheid voor rotatie van de gegevens. Er wordt ook bijgehouden wie welke gegevens gebruikt heeft aan de hand van audit. Knox kan in zowel Linux als MacOS en Windows omgeving worden opgezet samen met de installatie van \textit{GO}\footnote{\href{https://golang.org/doc/install}{GO website}}, de taal waar Knox mee geschreven is. Knox zal ook gebruik moeten maken van een backend. Standaard maakt deze gebruik van een \textit{TempDB} die in geheugen alle data zal opslaan. Maar dit is geen werkwijze om permanent te behouden. Zou de machine uitvallen is alle data verloren. Voor de Backend wordt MySQL, PostgreSQL of sqlite aangeraden \autocite{Lundberg2021}. Knox heeft verder geen community achter zich die integraties met andere applicaties aanbieden. De algemene setup van deze werking is ook zeer complex en is deze geen goede keuze voor een bedrijf zoals Wolters Kluwer.
+
+\subsubsection{Confidant}
+
+Confidant \footnote{\href{https://lyft.github.io/confidant/}{Confidant github pagina}} is een secret management systeem ontworpen door Lyft. Het wordt gebruikt voor exclusief gebruik binnen een AWS omgeving. Als backend voor deze applicatie wordt een DynamoDB gebruikt wat een AWS databank systeem is. Het opzetten van deze opstelling is heel technisch en kan alleen worden gedaan binnen een Docker omgeving of een Linux omgeving. Via Docker kan men deze tool op Windows gebruiken maar er wordt geen gebruik gemaakt van containers. Voor Confidant is er weinig tot geen community die achter het platform staat \autocite{Confidant2021}. 
+
+
+\subsubsection{1Password Secrets Automation}
+
+1Password Secrets Automation \footnote{\href{https://1password.com/secrets/}{1Password Secrets Automation website}} is een recent uitgekomen secret management system gemaakt door AgileBits Inc die beter bekend staan als de ontwikkelaars van 1Password. In 2021 hebben ze een grote stap gezet door SecretHub\footnote{\href{https://secrethub.io/}{SecretHub website}} aan te kopen waarmee ze hun stap richten naar secrets management \autocite{Schoonen2021}. De tool gebruikt de beveiliging en encryptie mechanismen van 1Password wat een succesvolle tool is die sinds 2006 bestaat. De tool ondersteunt het principe van centraal beheer voor alle secrets met een belang aan audit, key rotation, policy en integraties met reeds bestaande tools \autocite{Shiner2021}. Voor TeamCity is er (nog) geen plugin. Deze tool is ook geen open-source applicatie. Omdat de applicatie bij het schrijven van deze tool vrijwel net uitgekomen is, is er ook niet veel informatie over op het internet bij het gebruik en mogelijke plus, en minpunten.
+
+\subsubsection{Keuze applicatie}
+
+In onderdeel \ref{sec:Hashicorp vault} werd Vault van Hashicorp gebruikt om de uitleg te geven hoe \textit{application-pull} een model is dat zeer sterk secret management definieert. Vault is na veel jaren verder uitgegroeid tot een zeer geschikte applicatie om als secret management system te gebruiken. Deze zal uitgewerkt worden op een Windows systeem.
+
+
+\subsection{Cloud oplossing}
+
+Wolters Kluwer gebruikt voor het grootste deel Azure als hun cloud solution platform. Hierdoor zal er gekeken worden naar het opzetten en gebruik van Azure Key Vault. Dit is een cloud oplossing die eerder werd besproken en bij Wolters Kluwer al een tijdje interessant leek te zijn om te gebruiken. Juist was er nooit de tijd om hiervoor een project voor op te zetten. Deze zal worden gekozen als cloud oplossing. Voor TeamCity bestaan er enkele plugins die een integratie voeren met Microsoft Azure cloud oplossingen, waaronder één plugin\footnote{\href{https://plugins.jetbrains.com/plugin/11373-azure-key-vault-support}{JetBrains website met Azure Key Vault plugin}} voor Azure Key vault.

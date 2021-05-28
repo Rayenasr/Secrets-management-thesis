@@ -1,0 +1,67 @@
+%%=============================================================================
+%% Inleiding
+%%=============================================================================
+
+\chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}
+\label{ch:inleiding}
+
+Bedrijven moeten meer de focus leggen op het beheer van gevoelige data zodat deze ten alle tijden veilig behouden worden. Wanneer applicaties en configuraties in een bedrijf draaien zullen er in bestanden uiteindelijk data komen die er niet zouden mogen zijn. Deze data zou beheerd moeten worden want men weet niet wie bijvoorbeeld binnen een week of twee ditzelfde bestand kan bekijken. Dit soort data noemt men \textit{\textbf{secrets}}. Veel bedrijven falen om dit in te zien en eindigen uiteindelijk met een overvloed aan applicaties en scripts waar gebruikersnamen en wachtwoorden zonder encryptie staan. Deze situatie noemt men een \textit{\textbf{secrets sprawl}}. Deze twee termen komen in onderdeel~\ref{sec:secrets management} aan bod en worden daar verder uitgelegd.
+
+Doorheen de jaren zijn er een aantal applicaties verschenen die dit probleem proberen op te lossen door alle secrets in een centrale locatie op te slaan. Vanuit deze centrale node kan men authenticatie verlenen wanneer secrets nodig zijn. 
+
+Een belangrijke workflow binnen software bedrijven is \textit{continuous integration \& continuous development (CI/CD)}. Hierbij worden continu applicaties opgebouwd die aangestuurd worden door een chronologische set van taken. Deze taken bevatten soms dan gevoelige gegevens die over het hoofd worden gezien. Elke gebruiker die toegang heeft om deze taken te beheren kan deze gegevens zien.
+
+%De inleiding moet de lezer net genoeg informatie verschaffen om het onderwerp te begrijpen en in te zien waarom de onderzoeksvraag de moeite waard is om te onderzoeken. In de inleiding ga je literatuurverwijzingen beperken, zodat de tekst vlot leesbaar blijft. Je kan de inleiding verder onderverdelen in secties als dit de tekst verduidelijkt. Zaken die aan bod kunnen komen in de inleiding~\autocite{Pollefliet2011}:
+
+\section{\IfLanguageName{dutch}{Probleemstelling}{Problem Statement}}
+\label{sec:probleemstelling}
+
+Bij Wolters Kluwer wordt TeamCity, een CI/CD tool gebruikt voor automatisch applicaties op te bouwen met behulp van een chronologische set van taken die worden opgegeven. Deze taken bevatten soms secrets die niet in encryptie staan. Dit is geen best practice en zou voorkomen moeten worden. TeamCity biedt de mogelijkheid aan om gevoelige data te maskeren in de vorm van \textit{password parameters} maar alsnog is dit geen optimale manier van werken. Bij Wolters Kluwer zijn er momenteel 12966 build configuraties aanwezig waar zeker secrets in allerlei plaatsen zijn opgeslagen. Dit vormt de probleemstelling dat geen deftig overzicht is van waar secrets staan. Mogelijks staan er ook secrets zonder encryptie in parameter velden / build scripts. Het beheren van secrets is een beveiligingsmaatregel die vaak over het hoofd wordt gezien. Er bestaan applicaties die als doel hebben om deze gevoelige data af te schermen bij de werking van automatisering, CI/CD applicaties en container omgevingen. Deze applicaties bieden een oplossing aan voor gecentraliseerd beheer van secrets. Omdat Wolters Kluwer een hybride aanpak neemt met cloud en on-premise, zal er voor beide omgevingen een tool worden gebruikt. Deze dienen als fundament om het nut van deze technologie waar te nemen, en om deze verder te integreren binnen het bedrijf.
+
+
+
+
+%Uit je probleemstelling moet duidelijk zijn dat je onderzoek een meerwaarde heeft voor een concrete doelgroep. De doelgroep moet goed gedefinieerd en afgelijnd zijn. Doelgroepen als ``bedrijven,'' ``KMO's,'' systeembeheerders, enz.~zijn nog te vaag. Als je een lijstje kan maken van de personen/organisaties die een meerwaarde zullen vinden in deze bachelorproef (dit is eigenlijk je steekproefkader), dan is dat een indicatie dat de doelgroep goed gedefinieerd is. Dit kan een enkel bedrijf zijn of zelfs één persoon (je co-promotor/opdrachtgever).
+
+\section{\IfLanguageName{dutch}{Onderzoeksvraag}{Research question}}
+\label{sec:onderzoeksvraag}
+
+%Wees zo concreet mogelijk bij het formuleren van je onderzoeksvraag. Een onderzoeksvraag is trouwens iets waar nog niemand op dit moment een antwoord heeft (voor zover je kan nagaan). Het opzoeken van bestaande informatie (bv. ``welke tools bestaan er voor deze toepassing?'') is dus geen onderzoeksvraag. Je kan de onderzoeksvraag verder specifiëren in deelvragen. Bv.~als je onderzoek gaat over performantiemetingen, dan 
+
+Bij deze bachelorproef horen enkele onderzoeksvragen waar een antwoord op wordt gezocht, deze zijn als volgt:
+
+\begin{itemize}
+    \item Welke open-source applicatie kan er gebruikt worden om \textbf{secrets} te beheren?
+    \item Welke cloud oplossing kan er gebruikt worden om \textbf{secrets} te beheren?
+    \item Welke opstelling on-premise of via cloud oplossing, geeft een betere werking voor de use case met TeamCity?
+%    \item Kunnen deze opstellingen geautomatiseerd worden via reproduceerbare tactieken?
+\end{itemize}
+
+
+\section{\IfLanguageName{dutch}{Onderzoeksdoelstelling}{Research objective}}
+\label{sec:onderzoeksdoelstelling}
+
+%Wat is het beoogde resultaat van je bachelorproef? Wat zijn de criteria voor succes? Beschrijf die zo concreet mogelijk. Gaat het bv. om een proof-of-concept, een prototype, //een verslag met aanbevelingen//, een vergelijkende studie, enz.
+
+Dit onderzoek heeft tot doel het belang aan te tonen van secrets management binnen IT. Voor een Proof of Concept worden twee kandidaten gekozen om uitgewerkt te worden waar één als cloud oplossing, en één on-premise. Deze proof of concept zou ook een begin moeten zijn om het secrets probleem aan te pakken dat zich voordoet bij Wolters Kluwer met de CI/CD tool TeamCity. Het vormt ook als handleiding om de genomen stappen te reproduceren. Deze beide opstellingen trachten het probleem op te lossen met de gegeven reëel use case, en dienen aan als startpunt om na deze thesis verder geïntegreerd te worden binnen het bedrijf.
+
+%Als laatste is het doel ook dat het bedrijf waar de concrete opstellingen uitgevoerd worden, verder kunnen met de integratie van deze \textit{Proof of Concept} om deze in een productie omgeving te brengen zodat deze ten volle macht gebruikt kan worden.
+
+\section{\IfLanguageName{dutch}{Opzet van deze bachelorproef}{Structure of this bachelor thesis}}
+\label{sec:opzet-bachelorproef}
+
+% Het is gebruikelijk aan het einde van de inleiding een overzicht te
+% geven van de opbouw van de rest van de tekst. Deze sectie bevat al een aanzet
+% die je kan aanvullen/aanpassen in functie van je eigen tekst.
+
+De rest van deze bachelorproef is als volgt opgebouwd:
+
+In Hoofdstuk~\ref{ch:stand-van-zaken} wordt een overzicht gegeven van de stand van zaken binnen secrets managements \& cloud computing, op basis van een literatuurstudie.
+
+In Hoofdstuk~\ref{ch:methodologie} wordt de methodologie toegelicht om met de MoSCoW-methode, een kandidaat te selecteren voor de on-premise opstelling.
+
+In Hoofdstuk~\ref{ch:poc} wordt een proof of concept opgezet met de gekozen tools. Deze tools worden geconfigureerd \& geïntegreerd met TeamCity waar de concrete probleemstelling ligt.
+
+% TODO: Vul hier aan voor je eigen hoofstukken, één of twee zinnen per hoofdstuk
+
+In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvragen. Daarbij wordt ook een aanzet gegeven voor toekomstig onderzoek binnen dit domein.

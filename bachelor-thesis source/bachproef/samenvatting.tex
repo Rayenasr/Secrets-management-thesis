@@ -1,0 +1,47 @@
+%%=============================================================================
+%% Samenvatting
+%%=============================================================================
+
+% TODO: De "abstract" of samenvatting is een kernachtige (~ 1 blz. voor een
+% thesis) synthese van het document.
+%
+% Deze aspecten moeten zeker aan bod komen:
+% - Context: waarom is dit werk belangrijk?
+% - Nood: waarom moest dit onderzocht worden?
+% - Taak: wat heb je precies gedaan?
+% - Object: wat staat in dit document geschreven?
+% - Resultaat: wat was het resultaat?
+% - Conclusie: wat is/zijn de belangrijkste conclusie(s)?
+% - Perspectief: blijven er nog vragen open die in de toekomst nog kunnen
+%    onderzocht worden? Wat is een mogelijk vervolg voor jouw onderzoek?
+%
+% LET OP! Een samenvatting is GEEN voorwoord!
+
+%%---------- Nederlandse samenvatting -----------------------------------------
+%
+% TODO: Als je je bachelorproef in het Engels schrijft, moet je eerst een
+% Nederlandse samenvatting invoegen. Haal daarvoor onderstaande code uit
+% commentaar.
+% Wie zijn bachelorproef in het Nederlands schrijft, kan dit negeren, de inhoud
+% wordt niet in het document ingevoegd.
+
+\IfLanguageName{english}{%
+\selectlanguage{dutch}
+\chapter*{Samenvatting}
+\lipsum[1-4]
+\selectlanguage{english}
+}{}
+
+%%---------- Samenvatting -----------------------------------------------------
+% De samenvatting in de hoofdtaal van het document
+
+\chapter*{\IfLanguageName{dutch}{Samenvatting}{Abstract}} 
+
+
+Secrets management is een belangrijk onderdeel voor de beveiliging van gegevens. Het impliceert naar applicaties en methodes om gevoelige gegevens te beheren voor gebruik in applicaties, services en andere gevoelige delen van het IT-ecosysteem. Het moet maar één keer gebeuren, dat gegevens met administrator rechten tot een bepaalde server in de verkeerde handen vallen om daarna pijnlijke gevolgen te verdragen. 
+
+Bij Wolters Kluwer wordt TeamCity, een continuous integration \& continuous development (CI/CD) tool, gebruikt voor automatisch applicaties op te bouwen met behulp van een chronologische set van taken die worden opgegeven. Dit onderzoek is vertrokken van een use case met betrekking tot deze tool. Het doel is om gevoelige gegevens beter te beheren in de CI/CD omgeving van TeamCity. Bij het uitvoeren van integratietesten en implementaties, gebruiken build scripts gegevens om toegang te verkrijgen tot externe servers en services. Traditioneel, worden wachtwoorden als veilige parameters op de TeamCity server opgeslagen. Dit biedt vaak niet een hoog genoeg beveiligingsniveau aan. In een productie omgeving van TeamCity met meer dan tienduizend build configuraties waar mogelijk honderden wachtwoorden opgeslagen staan, is het beheer van deze gegevens niet overzichtelijk. Secret management tracht dit probleem op te lossen aan de hand van twee tools die werden opgezet, een on-premise Hashicorp Vault opstelling, en een Microsoft Azure cloud oplossing, Azure Key Vault. Deze tools werden opgezet en geïntegreerd met TeamCity om gegevens te verlenen wanneer deze opgevraagd worden door build scripts. 
+
+Eerst werd een literatuurstudie uitgevoerd om de stand van zaken rond secrets management en cloud oplossingen te verduidelijken. Bij de methodologie werden open-source secret management tools bekeken aan de hand van de MoSCoW-methode. Bij De proof of concept kunt u de stappen volgen hoe beide opstellingen opgesteld zijn voor Wolters Kluwer, een wereldwijde leverancier van professionele informatie, software en diensten. 
+
+Vanuit dit onderzoek werd het duidelijk dat secret management tools gehanteerd kunnen worden om dit en gelijkaardig problemen op te lossen. Gevoelige gegevens die in een TeamCity omgeving staan, kunnen via secret management tools, centraal beheerd worden. Dit vormt een extra abstractielaag tussen de CI/CD tool en gevoelige gegevens. Secret management systemen bieden tegenwoordig veel functionaliteiten aan waarvan er zeker genoeg ruimte is om deze allemaal te onderzoeken in eventueel toekomstige onderzoeken.

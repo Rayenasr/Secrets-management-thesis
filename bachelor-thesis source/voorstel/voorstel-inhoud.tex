@@ -1,0 +1,112 @@
+%---------- Inleiding ---------------------------------------------------------
+
+\section{Introductie} % The \section*{} command stops section numbering
+\label{sec:introductie}
+
+Het is een herkenbare situatie bij bedrijven wanneer gevoelige data zoals gebruikersnamen en wachtwoorden, extensief gebruikt worden bij automatisatie gebieden. Het probleem hiermee is dat deze gegevens makkelijk verspreid geraken in allerlei bestanden en uiteindelijk terecht komen op \textit{version control} systemen zoals github \footnote{https://github.com} of bitbucket \footnote{https://bitbucket.org}. Deze manier van werken zorgt na een tijd voor een overvloed aan gevoelige data in meerdere locaties, zonder enig idee van wat waar is. Dit noemt men een \textbf{Secret Sprawl} \autocite{Tozzi2020}. Dit is qua beveiliging geen prettige situatie en men weet niet welke personen deze data kunnen bekijken, en of deze personen bevoegd zijn. \textbf{Secret Management} is de term die gebruikt wordt die dit probleem de baas probeert te zijn. Het gaat om een gecentraliseerde locatie waar \textbf{secrets} beheerd en verleend worden aan applicaties en gebruikers die deze nodig hebben om taken uit te voeren \autocite{Hoffman2021}. Dit brengt een niveau van veiligheid en abstractie omhoog terwijl de integratie met applicaties vlot gebeurd.
+
+Dit onderzoek en de opstellingen die worden aangemaakt zijn binnen het kader van het development team binnen \textit{Wolters Kluwer} \footnote{https://www.wolterskluwer.com/nl-be} waar de bruikbaarheid van secrets management bewezen wordt en een integratie wordt uitgevoerd met Teamcity, een CI/CD applicatie. Verder wordt dit proces geautomatiseerd tot waar mogelijk. Hieruit volgen volgende onderzoeksvragen:
+
+%\hspace{1cm}
+\begin{itemize}
+    \item Welke open-source applicatie kan er gebruikt worden om \textbf{secrets} te beheren?
+    \item Welke cloud oplossing kan er gebruikt worden om \textbf{secrets} te beheren?
+    \item Welke opstelling on-premise of via cloud oplossing, geeft een betere werking voor de use case met TeamCity?
+\end{itemize}
+
+%\begin{itemize}
+%  \item de probleemstelling en context
+%  \item de motivatie en relevantie voor het onderzoek
+%  \item de doelstelling en onderzoeksvraag/-vragen
+%\end{itemize}
+
+%---------- Stand van zaken ---------------------------------------------------
+
+\section{State-of-the-art}
+\label{sec:state-of-the-art}
+\textbf{Secret management} verwijst naar hulpmiddelen en methodes om digitale authenticatie en autorisatie tot systemen te beheren. Dit houdt in dat data zoals sleutels, wachtwoorden, API tokens, bevoegde accounts en dergelijke gevoelige data niet zomaar eindigen in onbewerkte teksten. deze data noemt men \textbf{secrets}. Het gebruik van secrets in meerdere locaties voor bepaalde doeleinden te behalen gaat tegen de beveiligingsnormen die standaard gelden binnen IT maar alsnog geschonden worden. Men weet op deze manier dan ook niet welke gebruikers toegang hebben tot bestanden waar lichtgevoelige data aanwezig is. Hiermee wordt er ook niet bijgehouden in welke locaties al die gevoelige data kan zitten. Via secrets management probeert men dit probleem aan te pakken. Enkele applicaties die het concept van secrets management ondersteunen zijn:
+
+%\hspace{1cm}
+\begin{itemize}
+    \item Vault
+    \item Keywhiz
+    \item Confidant
+\end{itemize}
+%\hspace{1cm}
+
+Volgens de \textbf{Verizon Data Breach report (2020)} waren 77\% van de cloud inbreuken gerelateerd met gecompromitteerde inloggegevens, met andere woorden, \textit{secrets} \autocite{Hoffman2021}. Dit impliceert naar een zwakke focus voor secret management terwijl bedrijven hun beveiliging systemen optimaal proberen te houden. Verder is er ook de vraag of er cloud oplossingen zijn om dit probleem aan te pakken? Maar om dit eerst te verstaan wordt het concept van cloud oplossingen uitgelegd. 
+
+Cloud oplossingen zijn services aangeboden door \textbf{Cloud Service providers} om bepaalde problemen op te lossen via het internet. Gebruikers krijgen computerdiensten die veel positieve kenmerken met zich meeneemt, onder andere:
+
+%\hspace{1cm}
+\begin{itemize}
+    \item kostenefficiënt
+    \item schaalbaarheid
+    \item veiligheid van data
+    \item flexibiliteit
+\end{itemize}
+%\hspace{1cm}
+
+Qua kosten-efficiëntie kan er gekeken worden dat er geen geld meer besteed moet worden aan een IT-infrastructuur en hiervoor moet geen locatie voor worden voorzien. De kosten dalen door het feit dat er ook niets meer onderhouden moet worden en niet moet gekeken worden naar opschalen waarbij geen extra apparatuur aangeschaft moet worden. Via een \textit{Cloud Service Provider} kan er makkelijk opgeschaald of afgeschaald worden naargelang de situatie en welke noden er voldaan moeten worden. In vergelijking met zelf een IT-infrastructuur te beheren is hier het grote voordeel dat men juist betaalt voor de functionaliteit van het apparatuur. Deze providers houden hun cybersecurity optimaal en investeren hier veel geld in, zo hebben de klanten altijd hun \textit{Cloud Resources} ter beschikking zonder dat daar omtrent veel zorgen over zijn. Het enige dat vereist wordt bij de klant, is dat er een internetverbinding aanwezig is. Wat tegenwoordig een standaard hoort te zijn. Dergelijke zaken zoals het juist laten werken van de machines en beveiligingsmaatregelen wordt volledig opgenomen door de cloud service provider \autocite{WouterCloudInvest2020}. Om het concept van cloud oplossingen verder te begrijpen wordt er ook uitleg gegeven over de verschillende \textit{Cloud Delivery Models}, namelijk:
+
+%\hspace{1cm}
+\begin{itemize}
+    \item 'Infrastructure as a Service' (IaaS)
+    \item 'Platform as a Service' (PaaS)
+    \item 'Software as a Service' (SaaS)
+\end{itemize}
+%\hspace{1cm}
+
+Bij \textbf{IaaS} wordt het bij een eindgebruiker mogelijk gesteld om rekenkrachten en opslag te huren zonder dat zij zich zorgen moeten maken over onderhoud of kosten om deze servers te laten draaien. Dit stelt voor een eindgebruiker de grootste vrijheid van de 3 modellen. Daarnaast is er ook \textbf{PaaS} Waar de eindgebruiker, hetzij ontwikkelaars, hetzij zakelijke gebruikers, makkelijker en sneller applicaties kunnen ontwikkelen zonder enige zorg om het beheer van de servers. 
+Als laatste is er ook \textbf{SaaS}. Bij SaaS wordt een software als online dienst geleverd aan de eindgebruiker \autocite{hurwitz2020cloud}. 
+
+Een bedrijf is zelf verantwoordelijk voor de \textbf{secrets management}, het is anders ook niet logisch dat een service provider voor elke gebruiker de \textbf{secrets} gaat beheren. Soms passeert er wel de term 'Secrets as a Service', maar dit is geen populaire term. Hier is er een service van, genaamd \textbf{AWS IAM}, waar gebruikers zich zelf moeten laten identificeren voor authenticatie te verkrijgen om \textit{secret services} te gebruiken, onder andere toegang tot bepaalde resources \autocite{thoughtworks2019}. Dit is een tool van amazon web services (AWS) om cloud resources op een veilige manier te gebruiken en beheren. Hiermee de volgende vraag of er nog mogelijke cloud oplossingen zijn die een mogelijkheid aanbieden om \textbf{secrets} te beheren? Enkele mogelijkheden zijn:
+
+%\hspace{1cm}
+\begin{itemize}
+    \item Cloud KMS van Google Cloud \footnote{https://cloud.google.com/security-key-management}
+    \item Key Vault van Microsoft Azure \footnote{https://azure.microsoft.com/en-us/services/key-vault/}
+    \item AWS Secrets Manager van Amazon Web Services \footnote{https://aws.amazon.com/secrets-manager/}
+\end{itemize}
+%\hspace{1cm}
+
+Het is interessant om te zien welke applicaties en technieken er tegenwoordig bestaan om \textbf{secrets} zo goed mogelijk te beheren.
+
+%Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein. Dit kan %bijvoorbeeld een literatuurstudie zijn. Je mag de titel van deze sectie ook aanpassen %(literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? %Wat concluderen ze? Wat is het verschil met jouw onderzoek? Wat is de relevantie met %jouw onderzoek?
+
+%Verwijs bij elke introductie van een term of bewering over het domein naar de %vakliteratuur, bijvoorbeeld~\autocite{Doll1954}! Denk zeker goed na welke werken je %refereert en waarom.
+
+% Voor literatuurverwijzingen zijn er twee belangrijke commando's:
+% \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
+%   geen onderdeel is van de zin.
+% \textcite{KEY} => Auteur (jaartal)  Gebruik dit als de auteursnaam wel een
+%   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
+%   ...'')
+
+%Je mag gerust gebruik maken van subsecties in dit onderdeel.
+
+%---------- Methodologie ------------------------------------------------------
+\section{Methodologie}
+\label{sec:methodologie}
+
+%Voor het onderzoek zullen er enkele vragenlijsten opgesteld worden en enkele interviews gehouden worden. Deze worden ingevuld door verschillende ondernemingen, werknemers alsook werkgevers. die door de covid crisis, een periode in halt zijn moeten gaan en die een interne werking hebben moeten aanpassen door een vorm van cloud oplossing te integreren in het bedrijf. Deze data wordt verzamelt en verwerkt in grafieken waarmee er een visuele verduidelijking is van hoe bedrijven beïnvloed zijn geweest door de covid crisis, of deze een positieve/negatieve draai aan de onderneming heeft gegeven en hoe de visie tegenover de toekomst verandert is.
+
+Om de onderzoeksvragen te kunnen beantwoorden zal er allereerst een literatuurstudie worden uitgevoerd om te weten welke benaderingen er bij \textbf{secret management} werden uitgevoerd en welke applicaties beschikbaar zijn om een \textit{vault} aan te maken voor de \textbf{secrets} mee te beheren, verder wordt onderzocht bij welke applicaties er integratie mogelijkheden zijn met Teamcity \footnote{https://www.jetbrains.com/teamcity}. Deze CI/CD applicatie maakt gebruik van \textit{version control} om aan bepaalde bestanden te komen om applicaties op te bouwen, in deze bestanden eindigen soms belangrijke gegevens die geweerd moeten worden uit dit systeem. Er zal gekeken worden naar mogelijkheden om processen te automatiseren. Er wordt dan vooral gekeken naar een cloud oplossing en een on-premise opstelling. de verschillende tools worden opgezet en dienen het reële probleem op te lossen.
+
+%Hier beschrijf je hoe je van plan bent het onderzoek te voeren. Welke onderzoekstechniek ga je toepassen om elk van je onderzoeksvragen te beantwoorden? Gebruik je hiervoor experimenten, vragenlijsten, simulaties? Je beschrijft ook al welke tools je denkt hiervoor te gebruiken of te ontwikkelen.
+
+%---------- Verwachte resultaten ----------------------------------------------
+\section{Verwachte resultaten}
+\label{sec:verwachte_resultaten}
+
+Er wordt verwacht dat via de implementaties van deze tools er duidelijk voorgesteld zal worden hoe \textbf{secret management} een belangrijk aspect is om op te nemen binnen een bedrijf en hoe deze voor een abstractielaag zorgt tussen \textbf{secrets} en taken die uitgevoerd worden met deze gegevens. Er wordt verwacht dat de opstelling niet te ingewikkeld gaat zijn om op te zetten en de interfaces gebruiksvriendelijk zijn om te gebruiken.
+
+%Hier beschrijf je welke resultaten je verwacht. Als je metingen en simulaties uitvoert, kan je hier al mock-ups maken van de grafieken samen met de verwachte conclusies. Benoem zeker al je assen en de stukken van de grafiek die je gaat gebruiken. Dit zorgt ervoor dat je concreet weet hoe je je data gaat moeten structureren.
+
+%---------- Verwachte conclusies ----------------------------------------------
+\section{Verwachte conclusies}
+\label{sec:verwachte_conclusies}
+
+Uit dit onderzoek wordt er verwacht de conclusie te nemen hoe belangrijk het is voor bedrijven om op tijd te denken aan een vorm van \textbf{secrets management}. Men zal de mogelijkheid hebben om dit te waarnemen via een \textit{proof of concept} en potentieel de mogelijkheid hebben om dit verder uit te breiden zodat het gebruik van \textbf{secrets} in een development omgeving, secret blijven.
+
+%Hier beschrijf je wat je verwacht uit je onderzoek, met de motivatie waarom. Het is \textbf{niet} erg indien uit je onderzoek andere resultaten en conclusies vloeien dan dat je hier beschrijft: het is dan juist interessant om te onderzoeken waarom jouw hypothesen niet overeenkomen met de resultaten.

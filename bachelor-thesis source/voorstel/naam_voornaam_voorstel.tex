@@ -1,0 +1,101 @@
+%==============================================================================
+% Sjabloon onderzoeksvoorstel bachelorproef
+%==============================================================================
+% Gebaseerd op LaTeX-sjabloon ‘Stylish Article’ (zie voorstel.cls)
+% Auteur: Jens Buysse, Bert Van Vreckem
+%
+% Compileren in TeXstudio:
+%
+% - Zorg dat Biber de bibliografie compileert (en niet Biblatex)
+%   Options > Configure > Build > Default Bibliography Tool: "txs:///biber"
+% - F5 om te compileren en het resultaat te bekijken.
+% - Als de bibliografie niet zichtbaar is, probeer dan F5 - F8 - F5
+%   Met F8 compileer je de bibliografie apart.
+%
+% Als je JabRef gebruikt voor het bijhouden van de bibliografie, zorg dan
+% dat je in ``biblatex''-modus opslaat: File > Switch to BibLaTeX mode.
+
+\documentclass{voorstel}
+
+\usepackage{lipsum}
+
+%------------------------------------------------------------------------------
+% Metadata over het voorstel
+%------------------------------------------------------------------------------
+
+%---------- Titel & auteur ----------------------------------------------------
+
+% TODO: geef werktitel van je eigen voorstel op
+\PaperTitle{Secrets management: centraal beheer van gevoelige data}
+%Vergelijkende studie van secrets management opstellingen, cloud versus on-premise
+
+%De invloed van de covid crisis op cloud-computing
+\PaperType{Onderzoeksvoorstel Bachelorproef 2020-2021} % Type document
+
+% TODO: vul je eigen naam in als auteur, geef ook je emailadres mee!
+\Authors{Rayen Nasra\textsuperscript{1}} % Authors
+\CoPromotor{Jan Delamper\textsuperscript{2} (Wolters Kluwer)}
+\affiliation{\textbf{Contact:}
+  \textsuperscript{1} \href{mailto:rayen.nasra@student.hogent.be}{Rayen.Nasra@student.hogent.be};
+  \textsuperscript{2} \href{mailto:Jan.Delamper@wolterskluwer.com}{Jan.Delamper@wolterskluwer.com};
+}
+
+%---------- Abstract ----------------------------------------------------------
+
+\Abstract{In dit onderzoek zal het thema rond \textbf{secrets management} onderzocht worden en zal er gekeken worden welke mogelijkheden er bestaan om dit te implementeren binnen een bedrijf in een testomgeving om een concreet probleem op te lossen. In een omgeving waar \textit{continuous integration \& continuous development (CI/CD)}, \textit{automation} en \textit{containerization} binnen de workflow zit van het \textit{delevopment team} bij Wolters Kluwer, is het belangrijk om gevoelige data te beveiligen. Er wordt uitgelegd vanuit welke problemen \textbf{secrets management} is ontstaan, welke tools dit principe ondersteunen, hoe de initiële problemen benaderd zijn geweest en welke mogelijkheden er zijn om secret management toe te passen. Verscheidene tools worden uitgewerkt in de vorm van een \textit{Proof of Concept}. Deze worden initieel opgezet om een bijdrage te leveren om een probleem op te lossen bij een concrete use-case. Dit onderzoek is relevant omdat bedrijven vaak geen rekening houden met secrets management waarmee er potentieel lekken ontstaan en kritische data in meerdere locaties kunnen terechtkomen.}
+
+%\Abstract{In dit onderzoek zal er onderzocht worden hoe de covid crisis een impact heeft gehad op bedrijven die de overgang hebben gemaakt naar cloud-based werken. Er wordt namelijk gekeken hoe het voor bedrijven een noodzaak was om gebruik te maken van cloud oplossingen voor de business te ondersteunen en telecom werken mogelijk te maken. Er wordt uitgelegd wat Cloud-Computing (CC) is en hoe deze voor bedrijven nieuwe bedrijfsmodellen ter beschikking gesteld heeft. Daarnaast wordt er gezien hoe de covid crisis de visie van bedrijven verandert heeft om cloud oplossingen te gebruiken, zelfs voor de toekomst. \\
+%Dit onderzoek is relevant omdat de crisis een grote impact heeft genomen op de  nu nog sterkere opkomst van CC. Van deze studie wordt er verwacht welke mogelijkheden en kansen aangeboden worden aan verschillende organisaties dankzij cloud oplossingen en hoe deze de toekomst voor bedrijven heeft verandert.
+
+
+%---------- Onderzoeksdomein en sleutelwoorden --------------------------------
+% TODO: Sleutelwoorden:
+%
+% Het eerste sleutelwoord beschrijft het onderzoeksdomein. Je kan kiezen uit
+% deze lijst:
+%
+% - Mobiele applicatieontwikkeling
+% - Webapplicatieontwikkeling
+% - Applicatieontwikkeling (andere)
+% - Systeembeheer
+% - Netwerkbeheer
+% - Mainframe
+% - E-business
+% - Databanken en big data
+% - Machineleertechnieken en kunstmatige intelligentie
+% - Andere (specifieer)
+%
+% De andere sleutelwoorden zijn vrij te kiezen
+
+\Keywords{systeembeheer. ---  Secrets Management --- On-Premise --- Cloud --- Security} % Keywords
+\newcommand{\keywordname}{Sleutelwoorden} % Defines the keywords heading name
+
+%---------- Titel, inhoud -----------------------------------------------------
+
+\begin{document}
+
+\flushbottom % Makes all text pages the same height
+\maketitle % Print the title and abstract box
+\tableofcontents % Print the contents section
+\thispagestyle{empty} % Removes page numbering from the first page
+
+%------------------------------------------------------------------------------
+% Hoofdtekst
+%------------------------------------------------------------------------------
+
+% De hoofdtekst van het voorstel zit in een apart bestand, zodat het makkelijk
+% kan opgenomen worden in de bijlagen van de bachelorproef zelf.
+\input{voorstel-inhoud}
+
+%------------------------------------------------------------------------------
+% Referentielijst
+%------------------------------------------------------------------------------
+% TODO: de gerefereerde werken moeten in BibTeX-bestand ``voorstel.bib''
+% voorkomen. Gebruik JabRef om je bibliografie bij te houden en vergeet niet
+% om compatibiliteit met Biber/BibLaTeX aan te zetten (File > Switch to
+% BibLaTeX mode)
+
+\phantomsection
+\printbibliography[heading=bibintoc]
+
+\end{document}
